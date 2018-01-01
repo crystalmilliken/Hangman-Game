@@ -1,0 +1,66 @@
+.score{
+    font-size: 2em;
+    color: red;
+}
+h2{
+    font-size: 1.5em;
+}
+header{
+    width:100%;
+    display: flex;
+    justify-content: space-around;
+    padding-top: 1em;
+    background-color: #d3d7da;
+}
+header ul{
+    padding-top:1em;
+}
+header li{
+    display: inline;
+    padding-top:0px;
+    
+}
+header li a{
+    text-decoration: none;
+    padding-right: 1em;
+    
+}
+main h2{
+    padding-top:3em;
+}
+.container{
+    width:80%;
+    margin:auto;
+}
+.col-6{
+    width:50%;
+    float:left;
+    text-align: center;
+    padding-top:3em;
+}
+.col-4{
+    width:33.3%;
+    float:left;
+    text-align: center;
+    padding-top:3em;
+}
+.gameScores{
+    padding-top:2em;
+}
+#lettersGuessed{
+    border: thin solid blue;
+    width:50%;
+    margin-top:2em;
+   visibility: hidden;
+}
+button{
+    margin-top:2em;
+}
+#info{
+    text-align: left;
+    padding-top: 3em;
+}
+.word-name{
+    text-decoration: underline;
+    font-weight: bolder;
+}

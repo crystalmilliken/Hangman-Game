@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Hang Man</title>
-        <script async src="assets/javascript/game.js"></script>
+        
         <link rel="icon" type="image/png" href="assets/images/favicon.png">
         <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
         <link rel="stylesheet" type="text/css" href="assets/css/style.css">
@@ -19,25 +19,14 @@
             </ul>
         </header>
         <main class="container">
-            <div class="col-4">
-                <div class="gameScores">
-                    <div id="wins" class="score"></div>
-                    <div id="currentWordSpots"></div>
-                    <div id="numGuesses"></div>
-                    <div id="lettersGuessed">Letters Guessed: </div>
-                    <button id="start">Begin</button>
-                </div>
-            <div id="info"></div>
-            </div>
-            
-            <div class="col-4">
-                <img id="hangTheMan" src='assets/images/1.png' style= "width:100%">
-            </div>
-            <div class="col-4">
-                <div class="gameScores">
-                    <div id="losses" class="score"></div>
-                </div>
+            <h2>Strategy</h2>
+            <div class="col-6">
+            <p style="padding:2em; text-align:left;">The fact that the twelve most commonly occurring letters in the English language are e-t-a-o-i-n-s-h-r-d-l-u (from most to least), along with other letter-frequency lists, are used by the guessing player to increase the odds when it is their turn to guess. On the other hand, the same lists can be used by the puzzle setter to stump their opponent by choosing a word which deliberately avoids common letters (e.g. rhythm or zephyr) or one that contains rare letters (e.g. jazz).
 
+Another common strategy is to guess vowels first, as English only has five vowels (a, e, i, o, and u, while y may sometimes, but rarely, be used as a vowel) and almost every word has at least one.</p>
+            </div>
+            <div class="col-6">
+                <img src="assets/images/history.jpg" alt="history">
             </div>
         </main>
         <div class="container">
