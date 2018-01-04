@@ -7,14 +7,13 @@ const WORDS = [
     {name:"brackets",description:"Brackets are used in various ways, including accessing the properties of an Object/Array and enclosing array values."}
     ];
 const IMG = ["1.png","2.png","3.png","4.png","5.png","6.png","7.png","8.png","9.png","10.png","11.png",];
-let user = {name:"",losses:0,wins:0}
-let userName = prompt("What's your name?");
-user.name = userName;
+let user = {losses:0,wins:0}
 let wrong = 0;
 let wordNum = Math.floor(Math.random() * WORDS.length);
 let currentWord = WORDS[wordNum].name;
 let currentDescription = WORDS[wordNum].description;
 let numOfGuesses = 0;
+let numOfGuessesLeft = 10;
 let lettersGuessed = [];
 let characters=[];
 let choice = false;
@@ -50,9 +49,28 @@ function checkArray(checkName){
     }
     return wordVal;
 }
-
+//As the player guesses correct letters, the length of 'currentWord' decreases.
+function testWord(key){
+    if(currentWord.length > 0){
+    replacecharacters(key);
+    }          
+}
 //Begins Game
 function start(){
+    //Grabs the players typed character
+    document.onkeyup = function(evt) {
+        let key = evt.key;
+            if(lettersGuessed.indexOf(key)>-1){
+                alert("Already Guessed that one");
+            }else{
+                lettersGuessed.push(key);
+                let upperIt = key.toUpperCase();
+                document.getElementById("lettersGuessed").innerHTML += ` ${upperIt},`
+            }
+            testWord(key);
+    };
+    numOfGuessesLeft = 10;
+    document.getElementById("guesses").innerHTML = `You have ${numOfGuessesLeft} left`;
     wordNum = Math.floor(Math.random() * WORDS.length);
     currentWord = WORDS[wordNum].name;
     checkName = finishedWords.indexOf(currentWord);
@@ -89,7 +107,7 @@ function start(){
             }
         }
     }
-newGame = false;
+    newGame = false;
 }
 
 //function for populating results to DOM
@@ -111,9 +129,10 @@ function populateDiv(){
         document.getElementById("hangTheMan").src = `assets/images/1.png`;
         document.getElementById("currentWordSpots").innerHTML = `The word was ${workingName}`;
         finishedWords.push(workingName);
+        numOfGuessesLeft = 10;
         //Checks to see if game play has reached max amount of words
             if(finishedWords.length === WORDS.length){
-                alert(`Game Over ${user.name}, you had ${user.wins} wins and ${user.losses} losses`);
+                alert(`Game Over. You had ${user.wins} wins and ${user.losses} losses`);
                 finishedWords = [];
                 newGame = true;
                 document.getElementById("lettersGuessed").style.visibility = "hidden";
@@ -125,18 +144,22 @@ function populateDiv(){
             }
         }
     if(choice === false){
+        numOfGuessesLeft--;
         wrong++;
         let currentImage = `assets/images/${IMG[wrong]}`;
-        if(wrong < IMG.length){
-            document.getElementById("hangTheMan").src = currentImage;
-        }else{
+        if(numOfGuessesLeft >= 0){
+        document.getElementById("hangTheMan").src = currentImage;
+        document.getElementById("guesses").innerHTML = `You have ${numOfGuessesLeft} left`;
+    }else{
+            numOfGuessesLeft = 10;
             user.losses++;
             document.getElementById("info").innerHTML = `<span class="word-name">${WORDS[wordNum].name}:</span> ${WORDS[wordNum].description}`;
             finishedWords.push(workingName);
             document.getElementById("losses").innerHTML = `Losses<br>${user.losses}`;
+            document.getElementById("hangTheMan").src = `assets/images/1.png`;
             if(finishedWords.length === WORDS.length){
                 finishedWords = [];
-                alert(`Game Over ${user.name}, you had ${user.wins} wins and ${user.losses} losses`);
+                alert(`Game Over! You had ${user.wins} wins and ${user.losses} losses`);
                 newGame = true;
                 document.getElementById("lettersGuessed").style.visibility = "hidden";
                 document.getElementById("hangTheMan").src = `assets/images/1.png`;
@@ -178,22 +201,4 @@ function replacecharacters(key){
     }
    populateDiv();
 }
-//As the player guesses correct letters, the length of 'currentWord' decreases.
-function testWord(key){
-    if(currentWord.length > 0){
-    replacecharacters(key);
-    }                
-}
-//Grabs the players typed character
-document.onkeyup = function(evt) {
-    let key = evt.key;
-        if(lettersGuessed.indexOf(key)>-1){
-            alert("Already Guessed that one");
-        }else{
-            lettersGuessed.push(key);
-            let upperIt = key.toUpperCase();
-            document.getElementById("lettersGuessed").innerHTML += ` ${upperIt},`
-        }
-        testWord(key);
-};
 document.getElementById("start").addEventListener("click", start);
